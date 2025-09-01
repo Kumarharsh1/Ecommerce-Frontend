@@ -1,0 +1,18 @@
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.hero-section h1 span {
+  color: #007bff; /* Example color */
+}
+
+/* You can use different spans for each word to color them differently */
+.hero-section h1 .word-one {
+  color: #ff6347;
+}
+
+.hero-section h1 .word-two {
+  color: #4682b4;
+}
