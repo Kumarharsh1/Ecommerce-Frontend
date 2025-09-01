@@ -10,11 +10,12 @@
     "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts --openssl-legacy-provider build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+ "scripts": {
+  "start": "node node_modules/react-scripts/bin/react-scripts.js start",
+  "build": "node --openssl-legacy-provider node_modules/react-scripts/bin/react-scripts.js build",
+  "test": "node node_modules/react-scripts/bin/react-scripts.js test",
+  "eject": "node node_modules/react-scripts/bin/react-scripts.js eject"
+
   },
   "browserslist": {
     "production": [
