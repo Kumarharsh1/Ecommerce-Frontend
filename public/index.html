@@ -1,43 +1,1989 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Store - Premium Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            color: #ffdd40;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .search-box {
+            display: flex;
+        }
+        
+        .search-box input {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            width: 200px;
+        }
+        
+        .search-box button {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .cart-icon {
+            background-color: #ffdd40;
+            color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .auth-btn {
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn.signin {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .auth-btn.signin:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .auth-btn.signup {
+            background-color: #ffdd40;
+            color: #333;
+            border: 2px solid #ffdd40;
+        }
+        
+        .auth-btn.signup:hover {
+            background-color: #ffcc00;
+            border-color: #ffcc00;
+            transform: translateY(-2px);
+        }
+        
+        .user-menu {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+  .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        /*Enhanced Hero Section */
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(106, 17, 203, 0.8), rgba(37, 117, 252, 0.8)), 
+                        url('https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: -2;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: linear-gradient(to top, #f5f7fb, transparent);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #fff, #ffdd40);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            line-height: 1.6;
+            animation: fadeIn 2s ease-out;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeIn 2.5s ease-out;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #ffdd40;
+            color: #333;
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #ffcc00;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 6px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(37, 117, 252, 0.5);
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+            animation: fadeInUp 3s ease-out;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 160px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(to right, #ffdd40, #ffcc00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 25s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 50px;
+            height: 50px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+            animation-duration: 20s;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 70px;
+            height: 70px;
+            top: 70%;
+            left: 15%;
+            animation-delay: 4s;
+            animation-duration: 30s;
+        }
+        
+        .floating-element:nth-child(4) {
+            width: 40px;
+            height: 40px;
+            top: 30%;
+            left: 75%;
+            animation-delay: 1s;
+            animation-duration: 18s;
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        /* Categories Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 30px;
+            font-size: 2.2rem;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .category {
+            flex-basis: 23%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .category i {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+        
+        .category h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        /* Products Section */
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .product {
+            flex-basis: 23%;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            background: linear-gradient(45deg, #f5f7fb, #e8ecf1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img i {
+            font-size: 4.5rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .product-desc {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            height: 40px;
+            overflow: hidden;
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        .product-rating {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .add-to-cart:hover {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+        
+        /* Special Offers */
+        .offers {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .offer {
+            flex-basis: 48%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .offer h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .offer p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+        
+        .testimonial {
+            flex-basis: 31%;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+        }
+        
+        .testimonial-role {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        .newsletter h2 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+        }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .newsletter-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 15px 20px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .newsletter-form button {
+            background-color: #ffdd40;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 0 50px 50px 0;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #ffcc00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+            color: white;
+            padding: 70px 40px 30px;
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #ffdd40;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ffdd40;
+            border-radius: 2px;
+        }
+
+        .footer-links,
+        .contact-info {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li,
+        .contact-info li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffdd40;
+            padding-left: 5px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: #ffdd40;
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* Footer bottom */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 0.95rem;
+            color: #bdc3c7;
+        }
+
+        /* Cart Popup */
+        .cart-popup {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .cart-popup.active {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            background: #f5f7fb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+        
+        .cart-item-info {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 20px 0;
+            text-align: right;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+        
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-modal.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .auth-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            max-width: 90%;
+            overflow: hidden;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        
+        .auth-modal.active .auth-container {
+            transform: translateY(0);
+        }
+        
+        .auth-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .close-auth {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-tab.active {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .auth-form {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .auth-btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn-submit:hover {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+        }
+        
+        .social-auth {
+            margin-top: 20px;
+        }
+        
+        .social-btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn.google:hover {
+            background: #f5f5f5;
+        }
+        
+        .social-btn.facebook {
+            background: #1877f2;
+            color: white;
+            border-color: #1877f2;
+        }
+        
+        .social-btn.facebook:hover {
+            background: #166fe5;
+        }
+        
+        .auth-footer {
+            padding: 15px 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+        
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .user-dropdown {
+            position: relative;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            display: none;
+            z-index: 100;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-item:hover {
+            background: #f5f7fb;
+        }
+        
+        .dropdown-item i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .category, .product {
+                flex-basis: 48%;
+            }
+            
+            .testimonial {
+                flex-basis: 48%;
+            }
+            
+            .footer-section {
+                flex-basis: 48%;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin: 20px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px 10px;
+            }
+            
+            .search-box {
+                margin: 0 0 15px 0;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .search-box input {
+                width: 70%;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero-stats {
+                gap: 20px;
+            }
+            
+            .stat-item {
+                padding: 15px 20px;
+                min-width: 120px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .category, .product, .testimonial, .footer-section {
+                flex-basis: 100%;
+            }
+            
+            .offers {
+                flex-direction: column;
+            }
+            
+            .offer {
+                margin-bottom: 20px;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 30px;
+                padding: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stat-item {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .auth-container {
+                width: 90%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .search-box {
+                order: 3;
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .search-box input {
+                width: 100%;
+            }
+            
+            .auth-buttons {
+                order: 2;
+            }
+            
+            .cart-icon {
+                order: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">My Store</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">Deals</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" placeholder="Search products...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <!-- Show these when user is NOT logged in -->
+                <div class="auth-buttons" id="authButtons">
+                    <a href="#" class="auth-btn signin" id="showSignIn">Sign In</a>
+                    <a href="#" class="auth-btn signup" id="showSignUp">Sign Up</a>
+                </div>
+                
+                <!-- Show these when user IS logged in -->
+                <div class="user-menu" id="userMenu">
+                    <div class="user-dropdown">
+                        <div class="user-avatar" id="userAvatar">JD</div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <a href="#" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-shopping-bag"></i> Orders</a>
+                            <a href="#" class="dropdown-item"><i class="fas fa-cog"></i> Settings</a>
+                            <a href="#" class="dropdown-item" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </div>
+                    <span id="userName">John Doe</span>
+                </div>
+                
+                <div class="cart-icon" id="cartIcon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Enhanced Hero Section -->
+    <section class="hero">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        
+        <div class="hero-content">
+            <h1>Premium Products for Your Lifestyle</h1>
+            <p>Discover the latest trends and exclusive items at amazing prices. Elevate your everyday experience with our curated collection.</p>
+            
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">
+                    <i class="fas fa-shopping-bag"></i> Shop Now !
+                </a>
+              
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Premium Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Customer Support</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="container">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="categories">
+            <div class="category">
+                <i class="fas fa-tshirt"></i>
+                <h3>Clothing</h3>
+                <p>Latest fashion trends</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-laptop"></i>
+                <h3>Electronics</h3>
+                <p>Gadgets & devices</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-couch"></i>
+                <h3>Home & Living</h3>
+                <p>Furniture & decor</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-spa"></i>
+                <h3>Health & Beauty</h3>
+                <p>Skincare & wellness</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="container">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="products">
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-headphones"></i>
+                    <div class="product-badge">Sale</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wireless Headphones</h3>
+                    <p class="product-desc">Premium sound quality with noise cancellation</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">₹10,799</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-laptop"></i>
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Ultra-Thin Laptop</h3>
+                    <p class="product-desc">Powerful performance in a lightweight design</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">₹74,999</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-running"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Running Shoes</h3>
+                    <p class="product-desc">Comfortable shoes for your active lifestyle</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="product-price">₹7,499</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-tshirt"></i>
+                    <div class="product-badge">Popular</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Premium T-Shirt</h3>
+                    <p class="product-desc">100% cotton comfortable t-shirt</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">₹2,499</div>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="container">
+        <h2 class="section-title">Special Offers</h2>
+        <div class="offers">
+            <div class="offer">
+                <h3>Summer Sale</h3>
+                <p>Up to 50% off on selected items</p>
+                <a href="#" class="btn">Shop Now</a>
+            </div>
+            <div class="offer">
+                <h3>New Collection</h3>
+                <p>Discover our latest products</p>
+                <a href="#" class="btn">Explore</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonials">
+            <div class="testimonial">
+                <p class="testimonial-text">"The quality of products I received was exceptional. Shipping was fast and the customer service was very helpful when I had questions."</p>
+                <div class="testimonial-author">Sarah Johnson</div>
+                <div class="testimonial-role">Verified Customer</div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"I've been shopping here for over a year now and I'm always impressed with the product selection and prices. Highly recommended!"</p>
+                <div class="testimonial-author">Michael Chen</div>
+                <div class="testimonial-role">Verified Customer</div>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"The return process was so easy when I needed to exchange a item. This store really values its customers."</p>
+                <div class="testimonial-author">Emma Rodriguez</div>
+                <div class="testimonial-role">Verified Customer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Subscribe to Our Newsletter</h2>
+            <p>Get the latest updates on new products, special offers, and exclusive discounts.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>My Store</h3>
+                    <p>Providing quality products at affordable prices since 2010. We're committed to customer satisfaction.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Sale Items</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> New Delhi, India</li>
+                        <li><i class="fas fa-phone"></i> +91-9279157296</li>
+                        <li><i class="fas fa-envelope"></i> kh949118@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 My Store. All rights reserved.</p>
+                <p class="creator">Made by Kumar Harsh</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-container">
+            <div class="auth-header">
+                <h2 id="authModalTitle">Sign In</h2>
+                <button class="close-auth" id="closeAuth">&times;</button>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="signInTab">Sign In</div>
+                <div class="auth-tab" id="signUpTab">Sign Up</div>
+            </div>
+            
+            <form class="auth-form" id="signInForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="auth-btn-submit">Sign In</button>
+                </div>
+                
+                <div class="social-auth">
+                    <button type="button" class="social-btn google">
+                        <i class="fab fa-google"></i> Sign in with Google
+                    </button>
+                    <button type="button" class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i> Sign in with Facebook
+                    </button>
+                </div>
+            </form>
+            
+            <form class="auth-form" id="signUpForm" style="display: none;">
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" class="form-control" id="signup-name" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" class="form-control" id="signup-email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" class="form-control" id="signup-password" placeholder="Create a password" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input type="password" class="form-control" id="signup-confirm" placeholder="Confirm your password" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="auth-btn-submit">Create Account</button>
+                </div>
+            </form>
+            
+            <div class="auth-footer">
+                <p id="authFooterText">
+                    Don't have an account? <a href="#" id="switchToSignUp">Sign up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Popup -->
+    <div class="cart-popup" id="cartPopup">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="close-cart" id="closeCart">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+            <p class="empty-cart-message">Your cart is empty</p>
+        </div>
+        <div class="cart-total" id="cartTotal">Total: ₹0.00</div>
+        <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // DOM Elements
+        const authModal = document.getElementById('authModal');
+        const showSignIn = document.getElementById('showSignIn');
+        const showSignUp = document.getElementById('showSignUp');
+        const closeAuth = document.getElementById('closeAuth');
+        const signInTab = document.getElementById('signInTab');
+        const signUpTab = document.getElementById('signUpTab');
+        const signInForm = document.getElementById('signInForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const authModalTitle = document.getElementById('authModalTitle');
+        const authFooterText = document.getElementById('authFooterText');
+        const authButtons = document.getElementById('authButtons');
+        const userMenu = document.getElementById('userMenu');
+        const userAvatar = document.getElementById('userAvatar');
+        const userName = document.getElementById('userName');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartPopup = document.getElementById('cartPopup');
+        const closeCart = document.getElementById('closeCart');
+        const overlay = document.getElementById('overlay');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.querySelector('.cart-count');
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+        
+        // Initialize state
+        let cart = [];
+        let total = 0;
+        let isLoggedIn = false;
+
+        // Show Sign In Form
+        showSignIn.addEventListener('click', function(e) {
+            e.preventDefault();
+            authModal.classList.add('active');
+            overlay.classList.add('active');
+            showAuthForm('signin');
+        });
+
+        // Show Sign Up Form
+        showSignUp.addEventListener('click', function(e) {
+            e.preventDefault();
+            authModal.classList.add('active');
+            overlay.classList.add('active');
+            showAuthForm('signup');
+        });
+
+        // Close Auth Modal
+        closeAuth.addEventListener('click', function() {
+            authModal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Click outside modal to close
+        overlay.addEventListener('click', function() {
+            authModal.classList.remove('active');
+            cartPopup.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Switch between Sign In and Sign Up tabs
+        signInTab.addEventListener('click', function() {
+            showAuthForm('signin');
+        });
+
+        signUpTab.addEventListener('click', function() {
+            showAuthForm('signup');
+        });
+
+        // Form submission
+        signInForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulate login process
+            simulateLogin(email, password);
+        });
+
+        signUpForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm').value;
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+            
+            // Simulate signup process
+            simulateSignup(name, email, password);
+        });
+
+        // User dropdown
+        userAvatar.addEventListener('click', function() {
+            dropdownMenu.classList.toggle('active');
+        });
+
+        // Logout functionality
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userAvatar.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('active');
+            }
+        });
+
+        // Cart functionality
+        cartIcon.addEventListener('click', () => {
+            cartPopup.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeCart.addEventListener('click', () => {
+            cartPopup.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Add to cart functionality
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const product = e.target.closest('.product');
+                const title = product.querySelector('.product-title').textContent;
+                const priceText = product.querySelector('.product-price').textContent;
+                const price = parseFloat(priceText.replace('₹', '').replace(',', ''));
+                
+                // Check if product already in cart
+                const existingItem = cart.find(item => item.title === title);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        title,
+                        price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                
+                // Show confirmation
+                button.textContent = 'Added to Cart!';
+                button.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.background = '';
+                }, 1500);
+            });
+        });
+
+        // Function to show the appropriate auth form
+        function showAuthForm(formType) {
+            if (formType === 'signin') {
+                signInTab.classList.add('active');
+                signUpTab.classList.remove('active');
+                signInForm.style.display = 'block';
+                signUpForm.style.display = 'none';
+                authModalTitle.textContent = 'Sign In';
+                authFooterText.innerHTML = 'Don\'t have an account? <a href="#" id="switchToSignUp">Sign up</a>';
+                
+                // Add event listener for the new link
+                document.getElementById('switchToSignUp').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAuthForm('signup');
+                });
+            } else {
+                signInTab.classList.remove('active');
+                signUpTab.classList.add('active');
+                signInForm.style.display = 'none';
+                signUpForm.style.display = 'block';
+                authModalTitle.textContent = 'Create Account';
+                authFooterText.innerHTML = 'Already have an account? <a href="#" id="switchToSignIn">Sign in</a>';
+                
+                // Add event listener for the new link
+                document.getElementById('switchToSignIn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAuthForm('signin');
+                });
+            }
+        }
+
+        // Simulate login process
+        function simulateLogin(email, password) {
+            // In a real application, you would make an API call here
+            console.log('Logging in with:', email, password);
+            
+            // Simulate API delay
+            setTimeout(function() {
+                // For demo purposes, we'll just consider it successful
+                const user = {
+                    name: 'John Doe',
+                    email: email,
+                    initials: 'JD'
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Update UI
+                updateUIAfterAuth(user);
+                
+                // Close modal
+                authModal.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Show success message
+                alert('Successfully signed in!');
+            }, 1000);
+        }
+
+        // Simulate signup process
+        function simulateSignup(name, email, password) {
+            // In a real application, you would make an API call here
+            console.log('Signing up with:', name, email, password);
+            
+            // Simulate API delay
+            setTimeout(function() {
+                // For demo purposes, we'll just consider it successful
+                const user = {
+                    name: name,
+                    email: email,
+                    initials: name.split(' ').map(n => n[0]).join('')
+                };
+                
+                // Save to localStorage
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // Update UI
+                updateUIAfterAuth(user);
+                
+                // Close modal
+                authModal.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Show success message
+                alert('Account created successfully!');
+            }, 1000);
+        }
+
+        // Update UI after authentication
+        function updateUIAfterAuth(user) {
+            authButtons.style.display = 'none';
+            userMenu.style.display = 'flex';
+            userName.textContent = user.name;
+            userAvatar.textContent = user.initials;
+            isLoggedIn = true;
+        }
+
+        // Logout function
+        function logout() {
+            // Remove user from localStorage
+            localStorage.removeItem('user');
+            localStorage.removeItem('isLoggedIn');
+            
+            // Update UI
+            authButtons.style.display = 'flex';
+            userMenu.style.display = 'none';
+            
+            // Close dropdown
+            dropdownMenu.classList.remove('active');
+            
+            // Show message
+            alert('You have been logged out.');
+            
+            isLoggedIn = false;
+        }
+
+        // Update cart display
+        function updateCart() {
+            // Clear cart items
+            cartItems.innerHTML = '';
+            
+            // Reset total
+            total = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="empty-cart-message">Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div class="cart-item-img">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.title}</div>
+                            <div class="cart-item-price">₹${item.price.toLocaleString()} x ${item.quantity}</div>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // Update total and count
+            cartTotal.textContent = `Total: ₹${total.toLocaleString()}`;
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        }
+
+        // Check if user is logged in on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            const userData = localStorage.getItem('user');
+            
+            if (isLoggedIn === 'true' && userData) {
+                const user = JSON.parse(userData);
+                updateUIAfterAuth(user);
+            }
+            
+            // Initialize cart
+            updateCart();
+        });
+    </script>
+</body>
 </html>
